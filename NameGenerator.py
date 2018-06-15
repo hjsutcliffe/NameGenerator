@@ -13,15 +13,25 @@ def num_lines(file_name):
 			pass
 		return i + 1;
 
-num_surnames = num_lines('last_names.txt');
-name_index = random.randint(0, num_surnames - 1)
-generated_name = 'Mr. '
+def generate_index(file_name):
+	count = num_lines(file_name);
+	index = random.randint(0, count - 1)
+	return index
 
-with open('last_names.txt','r') as names:
-	for i, line in enumerate(names):
-		if i == name_index:
-			generated_name += line.split(None, 1)[0]
+def generate_name(file_name, index):
+	name = ''
+	with open(file_name) as names:
+		for i, line in enumerate(names):
+			if i == index:
+				name += line.split(None, 1)[0]
+	return name
 
-print(generated_name)
+first_index = generate_index('male_names.txt')
+last_index = generate_index('last_names.txt')
+
+fullname = generate_name('male_names.txt', first_index) 
+fullname += ' ' + generate_name('last_names.txt', last_index)
+
+print(fullname)
 
 
